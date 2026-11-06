@@ -1,0 +1,25 @@
+# Local-only folders
+_review/
+course-material/
+
+# Large derived dataset (upsampled copy of original/)
+04-thermal-comfort-clustering/data/filleddata/
+
+# Environments and caches
+.venv/
+venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.vscode/
+.idea/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Regenerated outputs
+04-thermal-comfort-clustering/results/
+01-electricity-price-statistics/results/daily_statistics.csv
+01-electricity-price-statistics/results/mcp_distribution_plot.png
+03-pca-power-datasets/results/pca_plot_*.png

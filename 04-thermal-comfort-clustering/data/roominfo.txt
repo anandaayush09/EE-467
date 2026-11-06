@@ -1,0 +1,4 @@
+RoomID room-type size[m2] seating-capacity volume[m3]
+Room-1 lecture    139 84 461.48
+Room-2 study-zone 125 32 418.75
+Room-3 study-zone 125 32 418.75
