@@ -18,6 +18,10 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
+# Runner output (python main.py)
+run_logs/
+*/results/executed/
+
 # Regenerated outputs
 04-thermal-comfort-clustering/results/
 01-electricity-price-statistics/results/daily_statistics.csv

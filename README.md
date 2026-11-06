@@ -14,8 +14,10 @@ Five pieces of work applying statistics, time-series analysis, PCA and clusterin
 ## Repository layout
 ```
 01-… to 05-…     one folder per project: README.md, code, data/, results/, report/
+main.py          runs / lists the projects (see above)
 requirements.txt Python dependencies
 FUTURE_SCOPE.md  known issues, improvements and further work
+docs/agent/      engineering docs for contributors and coding agents (Flow, Decisions, Testing, ...)
 ```
 Each project folder is self-contained: scripts resolve paths relative to their own location, so they can be run from anywhere.
 
@@ -26,7 +28,19 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-## Running
+## Run everything from one place
+```bash
+python main.py                  # run the quick projects (about 1-2 minutes), list the others with the reason they were skipped
+python main.py --list           # every project, its tier, and whether its dependencies are installed
+python main.py 03 05            # run named projects, whatever their tier
+python main.py --all            # also the heavy projects (none are registered at the moment)
+```
+Each project runs in its own process with its folder as working directory; notebooks are executed into
+`<project>/results/executed/` as **copies** (the committed notebooks and their stored outputs are never modified), and every run is logged to
+`run_logs/<id>.log`. Exit code 0 = nothing failed, 1 = a project failed, 2 = bad arguments. Two projects are registered as *broken* and are skipped (naming them runs them and shows the error): `04b`
+(`clustering_kmeans_dbscan.py`, data loading was never written) and `02` (the ARIMA `forecast()` call fails on current statsmodels because the series has no date index with frequency; see `FUTURE_SCOPE.md`).
+
+## Running a single project by hand
 ```bash
 python 01-electricity-price-statistics/stats.py
 python 03-pca-power-datasets/pca_variance.py

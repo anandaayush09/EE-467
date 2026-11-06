@@ -10,9 +10,10 @@ Known issues first, then improvements per project, then repo-wide work. Items ar
 | `01-…/stats.py` vs `results/statistical_measures.csv` | CSV is in Rs/MWh; script outputs Rs/kWh | Pick one unit, regenerate the CSV from the script |
 | `01-…/stats.py` | The price cap (10 Rs/kWh) and the 0–10 body filter are hard-coded; the overall mode is the cap value | Make the cap a named constant; report statistics with and without cap-clipped samples |
 | `02-…/load_forecasting.ipynb` | Random Forest evaluated on a random split — leaks future into training for a time series | Use a chronological split / walk-forward validation |
-| `02-…/load_forecasting.ipynb` | ARIMA/SARIMA fitted without a date index (statsmodels warns forecasts cannot be generated); orders not tuned | Set a datetime index with `freq="h"`; select orders with AIC or `pmdarima.auto_arima` |
+| `02-…/load_forecasting.ipynb` | **Fails on statsmodels 0.15**: ARIMA/SARIMA are fitted without a date index with frequency; `forecast()` then raises `ValueError: No supported index is available` (older versions only warned). Orders are also not tuned | Set a datetime index with `freq="h"` (`series.asfreq("h")`, handle the gaps); select orders with AIC or `pmdarima.auto_arima`; then change its tier in `main.py` |
 | `03-…/pca_variance.py` | Only DS 3 is run; DS 1/2/4 counts exist only in the report | Loop over all four CSVs and save a summary table |
-| `05-endsem/endsem_21d170001.ipynb` | `fillna(method="ffill")` was removed in pandas 3 and fails on a current install | Replace with `.ffill().bfill()` |
+| `05-endsem/endsem_21d170001.ipynb` | `fillna(method="ffill")` was removed in pandas 3. It only runs if the data contain NaNs (they do not), so the notebook passes today, but it would fail on a current pandas with dirty data | Replace with `.ffill().bfill()` |
+| `main.py` | Projects `02` and `04b` are registered as *broken* and skipped | Fix them (rows above), then change their tier in `main.py` to `quick` |
 
 ## 2. Per-project extensions
 
